@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Clock from "./components/clock";
 import Todos from "./components/todos";
 import NewTodo from "./components/newTodo";
 import NavBar from "./components/navbar";
@@ -29,7 +30,6 @@ class App extends Component {
         isComplete: true,
       },
     ],
-    currentDateTime: Date().toLocaleString(),
   };
 
   handleComplete = (todo) => {
@@ -46,10 +46,11 @@ class App extends Component {
   };
 
   render() {
+    // console.log(this.state.date);
     return (
       <div className="app-body">
         <NavBar />
-        <p>{this.state.currentDateTime}</p>
+        <Clock />
         <NewTodo onClearAll={this.handleClearAll} />
         <Todos
           todos={this.state.todos}
