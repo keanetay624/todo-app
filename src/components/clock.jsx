@@ -2,20 +2,16 @@ import React, { Component } from "react";
 
 class Clock extends Component {
   state = {
-    time: {
-      day: new Date().getDay(),
-      hours: new Date().getHours(),
-      minutes: new Date().getMinutes(),
-    },
   };
 
   render() {
+    const {day, hours, minutes} = this.state;
     return (
       <React.Fragment>
-        <p>{this.handleDay(this.state.time.day)}</p>
-        <span className="m-2">{this.handleHours(this.state.time.hours)}</span>:
-        <span className="m-2">{this.handleMinutes(this.state.time.minutes)}</span>
-        <span>{this.state.time.hours < 12 ? "AM" : "PM"}</span>
+        <p>{this.handleDay(day)}</p>
+        <span className="m-2">{this.handleHours(hours)}</span>:
+        <span className="m-2">{this.handleMinutes(minutes)}</span>
+        <span>{hours < 12 ? "AM" : "PM"}</span>
       </React.Fragment>
     );
   }
@@ -27,20 +23,20 @@ class Clock extends Component {
   }
 
   updateClock() {
-    this.setState({time: {
+    this.setState({
       day: new Date().getDay(),
       hours: new Date().getHours(),
       minutes: new Date().getMinutes(),
-    }});
+    });
 
   }
 
   handleHours(hours) {
-    return hours > 12 ? (hours -= 12) : hours;
+    return hours < 10 ? ("0" + hours) : hours > 12 ? (hours -= 12) : hours;
   }
 
   handleMinutes(minutes) {
-    return minutes;
+    return minutes < 10 ? ("0" + minutes) : minutes;
   }
 
   handleDay(day) {
