@@ -30,6 +30,7 @@ class App extends Component {
         isComplete: true,
       },
     ],
+    input: "",
   };
 
   handleComplete = (todo) => {
@@ -45,13 +46,28 @@ class App extends Component {
     this.setState({ todos });
   };
 
+  handleChange = (e) => {
+    this.setState({ input: e.target.value });
+    console.log(this.state.input)
+  }
+
+  handleAddTodo = (e) => {
+    e.preventDefault();
+    this.addTodo(this.state.input);
+  }
+
+  addTodo = (userInput) => {
+    let todos = [...this.state.todos];
+    todos = [...todos, {id: todos.length + 1, task: userInput, isComplete: false}];
+    this.setState({ todos });
+  }
+
   render() {
-    // console.log(this.state.date);
     return (
       <div className="app-body">
         <NavBar />
         <Clock />
-        <NewTodo onClearAll={this.handleClearAll} />
+        <NewTodo onClearAll={this.handleClearAll} onChange={this.handleChange} onAdd={this.handleAddTodo}/>
         <Todos
           todos={this.state.todos}
           onComplete={this.handleComplete}
